@@ -1,0 +1,19 @@
+Package: FSQN
+Type: Package
+Title: Feature Specific Quantile Normalization
+Version: 0.0.1
+Author: Jennifer M. Franks
+Maintainer: Jennifer M. Franks <franksjenniferm@gmail.com>
+Description: Currently, there is a lack of effective methods designed to 
+    eliminate platform-based bias. Our package is designed to quantile normalize
+    each feature in a data set according to its corresponding feature in a
+    target distribution. This eliminates distribution based differences
+    resulting from the use of different gene expression profiling platforms.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Depends: preprocessCore
+Suggests: knitr
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+biocViews: Software, WorkflowStep, Normalization

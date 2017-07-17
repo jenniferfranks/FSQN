@@ -1,0 +1,63 @@
+---
+title: "Feature Specific Quantile Normalization - FSQN"
+author: "Jennifer Franks <jennifer.m.franks.gr@dartmouth.edu>"
+date: "May 3, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Example Code
+
+For this example, we will randomly generate two data sets.
+The target data set has 100 samples and 150 features.
+The test data set (that we want to normalize) has 30 samples and the same 150
+features. 
+We will normalize using the function quantileNormalizeByFeature(matrix_to_normalize, 
+target_matrix).
+
+NOTE: the two matrices must have corresponding rows. 
+
+
+```{r example1}
+library(FSQN)
+
+set.seed(7)
+target <- matrix(rnorm(100*150, mean = 1, sd = 1), nrow = 100, ncol = 150)
+test <- matrix(rnorm(30*150, mean = 2, sd = 2), nrow = 30, ncol = 150)
+
+normalized_test <- quantileNormalizeByFeature(test, target)
+
+```
+
+## Output
+
+Here we see that following normalization, the two data sets follow the same 
+distribution:
+
+```{r density_plots, echo=FALSE}
+
+par(mfrow=c(1,2))
+plot(density(target), main = "Pre-normalization", xlim = c(-6,6),
+    ylim = c(0,.6), lwd=2)
+lines(density(test), col = "red", lwd=2)
+
+plot(density(target), main = "Post-normalization", xlim = c(-6,6),
+    ylim = c(0,.6), lwd=2)
+lines(density(normalized_test), col = "red", lwd=2)
+```
+
+
+NOTE: coordinateMatrices(matrix1,matrix2) may be used to select only the
+columns in common between the two data matrices and will put them in a 
+corresponding order. See example below:
+
+```{r secondary, eval = F}
+temp = coordinateMatrices(matrix1, matrix2)
+
+ordered_matrix1 <- temp$V1
+ordered_matrix2 <- temp$V2
+```
+
